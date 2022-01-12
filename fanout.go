@@ -59,7 +59,7 @@ func New() *Fanout {
 	}
 }
 
-func (f *Fanout) addClient(p Client) {
+func (f *Fanout) AddClient(p Client) {
 	f.clients = append(f.clients, p)
 	f.workerCount++
 }
