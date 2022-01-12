@@ -179,7 +179,7 @@ func (t *fanoutTestSuite) TestWorkerCountLessThenServers() {
 	for i := 0; i < 4; i++ {
 		incorrectServer := newServer(t.network, func(w dns.ResponseWriter, r *dns.Msg) {
 		})
-		f.addClient(NewClient(incorrectServer.addr, t.network))
+		f.AddClient(NewClient(incorrectServer.addr, t.network))
 		closeFuncs = append(closeFuncs, incorrectServer.close)
 	}
 	correctServer := newServer(t.network, func(w dns.ResponseWriter, r *dns.Msg) {
@@ -196,7 +196,7 @@ func (t *fanoutTestSuite) TestWorkerCountLessThenServers() {
 	})
 	defer correctServer.close()
 
-	f.addClient(NewClient(correctServer.addr, t.network))
+	f.AddClient(NewClient(correctServer.addr, t.network))
 	f.workerCount = 1
 	f.attempts = 1
 	req := new(dns.Msg)
@@ -239,8 +239,8 @@ func (t *fanoutTestSuite) TestTwoServersUnsuccessfulResponse() {
 	f := New()
 	f.net = t.network
 	f.from = "."
-	f.addClient(c1)
-	f.addClient(c2)
+	f.AddClient(c1)
+	f.AddClient(c2)
 	writer := &cachedDNSWriter{ResponseWriter: new(test.ResponseWriter)}
 	for i := 0; i < 10; i++ {
 		req := new(dns.Msg)
@@ -265,7 +265,7 @@ func (t *fanoutTestSuite) TestCanReturnUnsuccessfulRepose() {
 	f.net = t.network
 	f.from = "."
 	c := NewClient(s.addr, t.network)
-	f.addClient(c)
+	f.AddClient(c)
 	req := new(dns.Msg)
 	req.SetQuestion(testQuery, dns.TypeA)
 	writer := &cachedDNSWriter{ResponseWriter: new(test.ResponseWriter)}
@@ -298,7 +298,7 @@ func (t *fanoutTestSuite) TestBusyServer() {
 	f.net = t.network
 	f.from = "."
 	f.attempts = 0
-	f.addClient(c)
+	f.AddClient(c)
 	req := new(dns.Msg)
 	req.SetQuestion(testQuery, dns.TypeA)
 	for i := int32(0); i < totalRequestNum; i++ {
@@ -346,8 +346,8 @@ func (t *fanoutTestSuite) TestTwoServers() {
 	f := New()
 	f.net = t.network
 	f.from = "."
-	f.addClient(c1)
-	f.addClient(c2)
+	f.AddClient(c1)
+	f.AddClient(c2)
 
 	req := new(dns.Msg)
 	req.SetQuestion(testQuery, dns.TypeA)
