@@ -25,7 +25,7 @@ import (
 	_ "github.com/coredns/coredns/plugin/log"
 	_ "github.com/coredns/coredns/plugin/reload"
 
-	_ "github.com/networkservicemesh/fanout"
+	_ "github.com/snapp-incubator/fanout"
 )
 
 func init() {

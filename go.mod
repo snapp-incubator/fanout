@@ -1,4 +1,4 @@
-module github.com/networkservicemesh/fanout
+module github.com/snapp-incubator/fanout
 
 go 1.14
 
